@@ -2,9 +2,9 @@
 #import "./include/audio_session/DarwinAudioSession.h"
 
 static NSObject *configuration = nil;
-static NSHashTable<AudioSessionPlugin *> *plugins = nil;
+static NSHashTable<AsyncAudioSessionPlugin *> *plugins = nil;
 
-@implementation AudioSessionPlugin {
+@implementation AsyncAudioSessionPlugin {
     DarwinAudioSession *_darwinAudioSession;
     FlutterMethodChannel *_channel;
 }
@@ -13,7 +13,7 @@ static NSHashTable<AudioSessionPlugin *> *plugins = nil;
     if (!plugins) {
         plugins = [NSHashTable weakObjectsHashTable];
     }
-    AudioSessionPlugin *plugin = [[AudioSessionPlugin alloc] initWithRegistrar:registrar];
+    AsyncAudioSessionPlugin *plugin = [[AsyncAudioSessionPlugin alloc] initWithRegistrar:registrar];
     [plugins addObject:plugin];
 }
 
@@ -21,7 +21,7 @@ static NSHashTable<AudioSessionPlugin *> *plugins = nil;
     self = [super init];
     NSAssert(self, @"super init cannot be nil");
     _channel = [FlutterMethodChannel
-        methodChannelWithName:@"com.ryanheise.audio_session"
+        methodChannelWithName:@"com.async_audio_session.plugin"
               binaryMessenger:[registrar messenger]];
     [registrar addMethodCallDelegate:self channel:_channel];
 
@@ -37,7 +37,7 @@ static NSHashTable<AudioSessionPlugin *> *plugins = nil;
     NSArray* args = (NSArray*)call.arguments;
     if ([@"setConfiguration" isEqualToString:call.method]) {
         configuration = args[0];
-        for (AudioSessionPlugin *plugin in plugins) {
+        for (AsyncAudioSessionPlugin *plugin in plugins) {
             [plugin.channel invokeMethod:@"onConfigurationChanged" arguments:@[configuration]];
         }
         result(nil);

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:audio_session/src/util.dart';
+import 'package:async_audio_session/src/util.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 /// works on GitHub.
 class AndroidAudioManager {
   static const MethodChannel _channel =
-      MethodChannel('com.ryanheise.android_audio_manager');
+      MethodChannel('com.async_audio_session.android_audio_manager');
   static AndroidAudioManager? _instance;
 
   final _scoAudioUpdatedEventSubject = BehaviorSubject<AndroidScoAudioEvent>();

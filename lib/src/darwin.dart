@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:audio_session/src/util.dart';
+import 'package:async_audio_session/src/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,7 +10,7 @@ import 'package:rxdart/rxdart.dart';
 /// works on GitHub.
 class AVAudioSession {
   static const MethodChannel _channel =
-      MethodChannel('com.ryanheise.av_audio_session');
+      MethodChannel('com.async_audio_session.av_audio_session');
   static AVAudioSession? _instance;
 
   final _interruptionNotificationSubject =

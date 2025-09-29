@@ -14,7 +14,7 @@ class AudioSessionWeb {
 
   AudioSessionWeb(Registrar registrar)
       : _channel = MethodChannel(
-          'com.ryanheise.audio_session',
+          'com.async_audio_session.plugin',
           const StandardMethodCodec(),
           registrar,
         ) {

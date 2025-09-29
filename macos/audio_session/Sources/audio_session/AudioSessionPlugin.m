@@ -1,9 +1,9 @@
 #import "AudioSessionPlugin.h"
 
 static NSObject *configuration = nil;
-static NSMutableArray<AudioSessionPlugin *> *plugins = nil;
+static NSMutableArray<AsyncAudioSessionPlugin *> *plugins = nil;
 
-@implementation AudioSessionPlugin {
+@implementation AsyncAudioSessionPlugin {
     FlutterMethodChannel *_channel;
 }
 
@@ -11,14 +11,14 @@ static NSMutableArray<AudioSessionPlugin *> *plugins = nil;
     if (!plugins) {
         plugins = [[NSMutableArray alloc] init];
     }
-    [[AudioSessionPlugin alloc] initWithRegistrar:registrar];
+    [[AsyncAudioSessionPlugin alloc] initWithRegistrar:registrar];
 }
 
 - (instancetype)initWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
     self = [super init];
     NSAssert(self, @"super init cannot be nil");
     _channel = [FlutterMethodChannel
-        methodChannelWithName:@"com.ryanheise.audio_session"
+        methodChannelWithName:@"com.async_audio_session.plugin"
               binaryMessenger:[registrar messenger]];
     [registrar addMethodCallDelegate:self channel:_channel];
     [plugins addObject:self];

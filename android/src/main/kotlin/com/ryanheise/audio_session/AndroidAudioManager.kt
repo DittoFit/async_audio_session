@@ -32,7 +32,7 @@ class AndroidAudioManager(applicationContext: Context, messenger: BinaryMessenge
     init {
         if (singleton == null) singleton = AudioManagerSingleton(applicationContext)
         this.messenger = messenger
-        channel = MethodChannel(messenger, "com.ryanheise.android_audio_manager")
+        channel = MethodChannel(messenger, "com.async_audio_session.android_audio_manager")
         singleton!!.add(this)
         channel!!.setMethodCallHandler(this)
     }

@@ -1,6 +1,6 @@
 #import <Flutter/Flutter.h>
 
-@interface AudioSessionPlugin : NSObject<FlutterPlugin>
+@interface AsyncAudioSessionPlugin : NSObject<FlutterPlugin>
 
 @property (readonly, nonatomic) FlutterMethodChannel *channel;
 

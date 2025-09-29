@@ -1,5 +1,5 @@
-name: audio_session_example
-description: Demonstrates how to use the audio_session plugin.
+name: async_audio_session_example
+description: Demonstrates how to use the async_audio_session plugin.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   just_audio: ^0.9.46
-  audio_session:
+  async_audio_session:
     path: ../
 
 dev_dependencies:
@@ -22,9 +22,9 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 dependency_overrides:
-  # When running the local version of audio_session in the parent directory, we
+  # When running the local version of async_audio_session in the parent directory, we
   # need to override other plugins to also use this local version.
-  audio_session:
+  async_audio_session:
     path: ..
 
 # For information on the generic Dart part of this file, see the

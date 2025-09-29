@@ -19,7 +19,7 @@ import 'darwin.dart';
 /// plugins will call this before they play or record audio.
 class AudioSession {
   static const MethodChannel _channel =
-      MethodChannel('com.ryanheise.audio_session');
+      MethodChannel('com.async_audio_session.plugin');
   static AudioSession? _instance;
 
   /// The singleton instance across all Flutter engines.

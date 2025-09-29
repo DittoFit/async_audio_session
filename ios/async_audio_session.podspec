@@ -3,7 +3,7 @@
 # Run `pod lib lint audio_session.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'audio_session'
+  s.name             = 'async_audio_session'
   s.version          = '0.0.1'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC

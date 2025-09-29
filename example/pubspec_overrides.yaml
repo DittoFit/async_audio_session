@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: async_audio_session
+dependency_overrides:
+  async_audio_session:
+    path: ..

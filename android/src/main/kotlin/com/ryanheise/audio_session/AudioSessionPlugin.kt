@@ -15,7 +15,7 @@ class AudioSessionPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPluginBinding) {
         val messenger: BinaryMessenger = flutterPluginBinding.getBinaryMessenger()
-        channel = MethodChannel(messenger, "com.ryanheise.audio_session")
+        channel = MethodChannel(messenger, "com.async_audio_session.plugin")
         channel!!.setMethodCallHandler(this)
         androidAudioManager =
             AndroidAudioManager(flutterPluginBinding.getApplicationContext(), messenger)

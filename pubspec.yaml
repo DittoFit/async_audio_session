@@ -1,10 +1,6 @@
-name: audio_session
+name: async_audio_session
 description: Sets the iOS audio session category and Android audio attributes for your app, and manages your app's audio focus, mixing and ducking behaviour.
 version: 0.2.2
-homepage: https://github.com/ryanheise/audio_session
-topics:
-  - audio
-  - audio-session
 
 environment:
   sdk: ^3.6.0
@@ -30,9 +26,9 @@ flutter:
         package: com.ryanheise.audio_session
         pluginClass: AudioSessionPlugin
       ios:
-        pluginClass: AudioSessionPlugin
+        pluginClass: AsyncAudioSessionPlugin
       macos:
-        pluginClass: AudioSessionPlugin
+        pluginClass: AsyncAudioSessionPlugin
       web:
         pluginClass: AudioSessionWeb
         fileName: audio_session_web.dart

@@ -18,7 +18,7 @@ static NSHashTable<DarwinAudioSession *> *sessions = nil;
     [sessions addObject:self];
     _registrar = registrar;
     _channel = [FlutterMethodChannel
-        methodChannelWithName:@"com.ryanheise.av_audio_session"
+        methodChannelWithName:@"com.async_audio_session.av_audio_session"
               binaryMessenger:[registrar messenger]];
     __weak __typeof__(self) weakSelf = self;
     [_channel setMethodCallHandler:^(FlutterMethodCall* call, FlutterResult result) {
@@ -181,13 +181,25 @@ static NSHashTable<DarwinAudioSession *> *sessions = nil;
 }
 
 - (void)setMode:(NSArray *)args result:(FlutterResult)result {
-    NSError *error = nil;
-    [[AVAudioSession sharedInstance] setMode:[self flutterToMode:args[0]] error:&error];
-    if (error) {
-        [self sendError:error result:result];
-    } else {
-        result(nil);
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block NSError *error = nil;
+        __block BOOL status = NO;
+        
+        @try {
+            status = [[AVAudioSession sharedInstance] setMode:[self flutterToMode:args[0]] error:&error];
+        } @catch (NSException *exception) {
+            error = [NSError errorWithDomain:@"com.ryanheise.audioSession" code:500 userInfo:@{NSLocalizedDescriptionKey: exception.reason}];
+            status = NO;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [self sendError:error result:result];
+            } else {
+                result(nil);
+            }
+        });
+    });
 }
 
 - (void)getAvailableModes:(NSArray *)args result:(FlutterResult)result {
@@ -278,13 +290,25 @@ static NSHashTable<DarwinAudioSession *> *sessions = nil;
 
 - (void)setAllowHapticsAndSystemSoundsDuringRecording:(NSArray *)args result:(FlutterResult)result {
     if (@available(iOS 13.0, *)) {
-        NSError *error = nil;
-        [[AVAudioSession sharedInstance] setAllowHapticsAndSystemSoundsDuringRecording:[args[0] boolValue] error:&error];
-        if (error) {
-            [self sendError:error result:result];
-        } else {
-            result(nil);
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSError *error = nil;
+            __block BOOL status = NO;
+            
+            @try {
+                status = [[AVAudioSession sharedInstance] setAllowHapticsAndSystemSoundsDuringRecording:[args[0] boolValue] error:&error];
+            } @catch (NSException *exception) {
+                error = [NSError errorWithDomain:@"com.ryanheise.audioSession" code:500 userInfo:@{NSLocalizedDescriptionKey: exception.reason}];
+                status = NO;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    [self sendError:error result:result];
+                } else {
+                    result(nil);
+                }
+            });
+        });
     } else {
         result(nil);
     }
@@ -300,13 +324,25 @@ static NSHashTable<DarwinAudioSession *> *sessions = nil;
 
 - (void)setPrefersNoInterruptionsFromSystemAlerts:(NSArray *)args result:(FlutterResult)result {
     if (@available(iOS 14.5, *)) {
-        NSError *error = nil;
-        [[AVAudioSession sharedInstance] setPrefersNoInterruptionsFromSystemAlerts:[args[0] boolValue] error:&error];
-        if (error) {
-            [self sendError:error result:result];
-        } else {
-            result(nil);
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSError *error = nil;
+            __block BOOL status = NO;
+            
+            @try {
+                status = [[AVAudioSession sharedInstance] setPrefersNoInterruptionsFromSystemAlerts:[args[0] boolValue] error:&error];
+            } @catch (NSException *exception) {
+                error = [NSError errorWithDomain:@"com.ryanheise.audioSession" code:500 userInfo:@{NSLocalizedDescriptionKey: exception.reason}];
+                status = NO;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    [self sendError:error result:result];
+                } else {
+                    result(nil);
+                }
+            });
+        });
     } else {
         result(nil);
     }
@@ -473,23 +509,47 @@ static NSHashTable<DarwinAudioSession *> *sessions = nil;
 }
 
 - (void)overrideOutputAudioPort:(NSArray *)args result:(FlutterResult)result {
-    NSError *error = nil;
-    [[AVAudioSession sharedInstance] overrideOutputAudioPort:[self decodePortOverride:args[0]] error:&error];
-    if (error) {
-        [self sendError:error result:result];
-    } else {
-        result(nil);
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block NSError *error = nil;
+        __block BOOL status = NO;
+        
+        @try {
+            status = [[AVAudioSession sharedInstance] overrideOutputAudioPort:[self decodePortOverride:args[0]] error:&error];
+        } @catch (NSException *exception) {
+            error = [NSError errorWithDomain:@"com.ryanheise.audioSession" code:500 userInfo:@{NSLocalizedDescriptionKey: exception.reason}];
+            status = NO;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [self sendError:error result:result];
+            } else {
+                result(nil);
+            }
+        });
+    });
 }
 
 - (void)setPreferredInput:(NSArray *)args result:(FlutterResult)result {
-    NSError *error = nil;
-    [[AVAudioSession sharedInstance] setPreferredInput:[self decodePort:args[0]] error:&error];
-    if (error) {
-        [self sendError:error result:result];
-    } else {
-        result(nil);
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block NSError *error = nil;
+        __block BOOL status = NO;
+        
+        @try {
+            status = [[AVAudioSession sharedInstance] setPreferredInput:[self decodePort:args[0]] error:&error];
+        } @catch (NSException *exception) {
+            error = [NSError errorWithDomain:@"com.ryanheise.audioSession" code:500 userInfo:@{NSLocalizedDescriptionKey: exception.reason}];
+            status = NO;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [self sendError:error result:result];
+            } else {
+                result(nil);
+            }
+        });
+    });
 }
 
 
@@ -541,9 +601,26 @@ static NSHashTable<DarwinAudioSession *> *sessions = nil;
 
 - (void)setInputGain:(NSArray *)args result:(FlutterResult)result {
     if (@available(iOS 6.0, *)) {
-        NSError *error = nil;
-        NSNumber *gainValue = (NSNumber *)args[0];
-        result(@([[AVAudioSession sharedInstance] setInputGain:gainValue.floatValue error:&error]));
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSError *error = nil;
+            __block BOOL status = NO;
+            
+            @try {
+                NSNumber *gainValue = (NSNumber *)args[0];
+                status = [[AVAudioSession sharedInstance] setInputGain:gainValue.floatValue error:&error];
+            } @catch (NSException *exception) {
+                error = [NSError errorWithDomain:@"com.ryanheise.audioSession" code:500 userInfo:@{NSLocalizedDescriptionKey: exception.reason}];
+                status = NO;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    [self sendError:error result:result];
+                } else {
+                    result(@(status));
+                }
+            });
+        });
     } else {
         result(nil);
     }
