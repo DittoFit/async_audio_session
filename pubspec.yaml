@@ -25,7 +25,7 @@ flutter:
     platforms:
       android:
         package: com.ryanheise.audio_session
-        pluginClass: AudioSessionPlugin
+        pluginClass: AsyncAudioSessionPlugin
       ios:
         pluginClass: AsyncAudioSessionPlugin
       macos:

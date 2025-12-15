@@ -24,7 +24,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import java.io.IOException
 
-class AndroidAudioManager(applicationContext: Context, messenger: BinaryMessenger) :
+class AsyncAndroidAudioManager(applicationContext: Context, messenger: BinaryMessenger) :
     MethodCallHandler {
     var messenger: BinaryMessenger?
     var channel: MethodChannel?
@@ -297,7 +297,7 @@ class ApiException(requiredLevel: Int) : RuntimeException("Requires API level $r
  */
 private class AudioManagerSingleton(applicationContext: Context) {
     private val handler: Handler = Handler(Looper.getMainLooper())
-    private val instances: MutableList<AndroidAudioManager> = ArrayList()
+    private val instances: MutableList<AsyncAndroidAudioManager> = ArrayList()
     private var audioFocusRequest: AudioFocusRequestCompat? = null
     private var noisyReceiver: BroadcastReceiver? = null
     private var scoReceiver: BroadcastReceiver? = null
@@ -332,11 +332,11 @@ private class AudioManagerSingleton(applicationContext: Context) {
         )
     }
 
-    fun add(manager: AndroidAudioManager) {
+    fun add(manager: AsyncAndroidAudioManager) {
         instances.add(manager)
     }
 
-    fun remove(manager: AndroidAudioManager) {
+    fun remove(manager: AsyncAndroidAudioManager) {
         instances.remove(manager)
     }
 

@@ -8,17 +8,17 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-/** AudioSessionPlugin  */
-class AudioSessionPlugin : FlutterPlugin, MethodCallHandler {
+/** AsyncAudioSessionPlugin  */
+class AsyncAudioSessionPlugin : FlutterPlugin, MethodCallHandler {
     private var channel: MethodChannel? = null
-    private var androidAudioManager: AndroidAudioManager? = null
+    private var androidAudioManager: AsyncAndroidAudioManager? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPluginBinding) {
         val messenger: BinaryMessenger = flutterPluginBinding.getBinaryMessenger()
         channel = MethodChannel(messenger, "com.async_audio_session.plugin")
         channel!!.setMethodCallHandler(this)
         androidAudioManager =
-            AndroidAudioManager(flutterPluginBinding.getApplicationContext(), messenger)
+            AsyncAndroidAudioManager(flutterPluginBinding.getApplicationContext(), messenger)
         instances.add(this)
     }
 
@@ -56,6 +56,6 @@ class AudioSessionPlugin : FlutterPlugin, MethodCallHandler {
 
     companion object {
         private var configuration: Map<*, *>? = null
-        private val instances: MutableList<AudioSessionPlugin> = ArrayList()
+        private val instances: MutableList<AsyncAudioSessionPlugin> = ArrayList()
     }
 }
