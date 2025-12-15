@@ -24,7 +24,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.ryanheise.audio_session
+        package: fit.ditto.async_audio_session
         pluginClass: AsyncAudioSessionPlugin
       ios:
         pluginClass: AsyncAudioSessionPlugin

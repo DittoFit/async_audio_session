@@ -1,4 +1,4 @@
-group = "com.ryanheise.audio_session"
+group = "fit.ditto.async_audio_session"
 version "1.0"
 def args = ["-Xlint:deprecation","-Xlint:unchecked"]
 
@@ -33,7 +33,7 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
-    namespace = "com.ryanheise.audio_session"
+    namespace = "fit.ditto.async_audio_session"
 
     compileSdk = 35
 

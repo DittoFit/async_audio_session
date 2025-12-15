@@ -1,4 +1,4 @@
-package com.ryanheise.audio_session
+package fit.ditto.async_audio_session
 
 import android.content.BroadcastReceiver
 import android.content.Context
